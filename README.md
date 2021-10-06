@@ -37,9 +37,6 @@ Hey there! New ideas are welcome: open/close issues, fork the repo and share you
 
 Clone this project to your computer:
 
-`git clone https://github.com/EricAlcaide/pysimplechain`
-
-## Meta
-[Eric Alcaide](https://github.com/hypnopump/) – [@eric_alcaide](https://twitter.com/eric_alcaide) – ericalcaide1@gmail.com
+`git clone https://github.com/rahulraiwkar00/blockchain1`
 
 [build-image]: https://img.shields.io/travis/rust-lang/rust/master.svg "Build Status"
