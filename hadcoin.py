@@ -1,5 +1,6 @@
 
 # Create a Crytocurrency
+from ctypes import addressof
 import datetime
 import hashlib
 import json
@@ -99,7 +100,8 @@ class Blockchain:
 app = Flask(__name__)
 
 # Creating an addresss for the node on port 5000
- 
+
+node_address = str(uuid4().replace('-', ''))
 
 # creating a Blockchain
 blockchain = Blockchain()
@@ -113,12 +115,15 @@ def mine_block():
     previous_proof = previous_block['proof']
     proof = blockchain.proof_of_work(previous_proof)
     previous_hash = blockchain.hash(previous_block)
+    blockchain.add_transactions(
+        sender=node_address, receiver='Rahul', amount=10)
     block = blockchain.create_block(proof, previous_hash)
     response = {'message': 'congratualtions you ust mine a Block',
                 'index': block['index'],
                 'timestamp': block['timestamp'],
                 'proof': block['proof'],
-                'previous_hash': block['previous_hash']}
+                'previous_hash': block['previous_hash'],
+                'transactions': block['transactions']}
     return jsonify(response), 200
 # Getting the full Blockchain
 
@@ -139,6 +144,36 @@ def is_valid():
     else:
         response = {'message': 'Blockchain is invalid'}
     return jsonify(response), 200
+
+
+@app.route('/add_transaction', methods=['POST'])
+def add_transaction():
+    json = request.get_json()
+    transaction_key = ['sender', 'receiver', 'amount']
+    if not (key in json for key in transaction_key):
+        return 'Some elements of the transaction are missing', 400
+
+    index = blockchain.add_transaction(
+        json['sender'], json['receiver'], json['amount'])
+    response = {
+        'message': f'This transaction will be added to the Block {index}'}
+    return jsonify(response), 201
+
+# Connecting the node in blockchain
+
+
+@app.route('/connect_node', methods=['POST'])
+def connect_node():
+    json = request.get_json()
+    nodes = json.get('nodes')
+    if nodes is None:
+        return 'No node', 401
+    for node in nodes:
+        blockchain.add_node(node)
+    response = {
+        'message': 'All the nodes are connected and The hadcoin now Blockchain contain the following nodes',
+        'total_nodes': list(blockchain.nodes)}
+    return jsonify(response), 201
 
 
 app.run(host='0.0.0.0', port=5000)
