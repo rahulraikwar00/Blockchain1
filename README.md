@@ -6,7 +6,7 @@
 ![](https://img.shields.io/twitter/url?label=Rahul%20Raikwar&style=social&url=https%3A%2F%2Ftwitter.com%2Frahulraikwar00)
 ## Description
 
-The Testcoin implementation is focused almost exclusively in the hashed ledger feature. It does not include any advanced feature like a distributed ledger or a consensus protocol via proof of work. 
+The Testcoin implementation is focused almost exclusively in the hashed ledger feature. It does include some advanced feature like a distributed nodes and a consensus protocol via proof of work. which is just a simple function not a complex algorithm.
 <!-- Here you'll also find that the idea of the "transaction" is abstracted to a more general concept of "`message`" that can contain any type of data. -->
 
 The goal of this project is to explain and to make clearer how is a blockchain structured at the very core. It's not built with the intention to replicate an advanced blockchain like Bitcoin or Ethereum.
